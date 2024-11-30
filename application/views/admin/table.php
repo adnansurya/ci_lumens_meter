@@ -86,7 +86,7 @@
                 <?php
                     }
                 } else {
-                    echo "<tr><td colspan='5' class='text-center'>Tidak ada data tersedia.</td></tr>";
+                    echo "<tr><td colspan='6' class='text-center'>Tidak ada data tersedia.</td></tr>";
                 }
                 ?>
             </tbody>
