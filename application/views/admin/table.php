@@ -19,6 +19,9 @@
                     <th scope="col">
                         <center>Watt</center>
                     </th>
+                    <th scope="col">
+                        <center>Persentase</center>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -46,14 +49,14 @@
                 $offset1 = ($page1 - 1) * $limit1;
 
                 // Query untuk tabel pertama
-                $total_records_query1 = "SELECT COUNT(*) FROM data";
+                $total_records_query1 = "SELECT COUNT(*) FROM table_data";
                 $total_records_result1 = mysqli_query($conn, $total_records_query1);
                 $total_records_row1 = mysqli_fetch_array($total_records_result1);
                 $total_records1 = $total_records_row1[0];
                 $total_pages1 = ceil($total_records1 / $limit1);
 
                 // Query pagination untuk tabel pertama
-                $query1 = "SELECT * FROM data ORDER BY id DESC LIMIT $offset1, $limit1";
+                $query1 = "SELECT * FROM table_data ORDER BY id DESC LIMIT $offset1, $limit1";
                 $read1 = mysqli_query($conn, $query1);
 
                 // Cek apakah ada data
@@ -71,10 +74,13 @@
                                 <center><?php echo $row['waktu']; ?></center>
                             </td>
                             <td>
-                                <center><?php echo $row['pressure_102']; ?></center>
+                                <center><?php echo $row['light_level']; ?></center>
                             </td>
                             <td>
-                                <center><?php echo $row['pressure_103']; ?></center>
+                                <center><?php echo $row['power']; ?></center>
+                            </td>
+                            <td>
+                                <center><?php echo $row['dimmer_percent']; ?></center>
                             </td>
                         </tr>
                 <?php
