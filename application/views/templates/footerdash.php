@@ -164,7 +164,7 @@
 
                 type: 'POST',
 
-                data: { tabel: 'table_data' }, // Mengirimkan nama tabel yang akan dihapus (Tabel 1)
+                data: { tabel: 'all' }, // Mengirimkan nama tabel yang akan dihapus (Tabel 1)
 
                 success: function(response) {
 
