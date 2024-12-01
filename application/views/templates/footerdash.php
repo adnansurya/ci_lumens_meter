@@ -10,6 +10,8 @@
 
 
 <script>
+    let startPage = true;
+    let sliderCurrentValue = 0;
     const slider = document.getElementById('mySlider');
 
 
@@ -24,11 +26,14 @@
             console.log(response);
 
             var objSlider = JSON.parse(response);
-             
 
-            document.getElementById('mySlider').value = objSlider.dimmer_percent;
+            sliderCurrentValue = objSlider.dimmer_percent;
+
+            slider.value = sliderCurrentValue;
 
             document.getElementById('sliderValue').textContent = objSlider.dimmer_percent + '%';
+
+            startPage = false;
 
         }
 
@@ -46,25 +51,9 @@
 
         sendSliderValue(sliderValue); // Send the value to the server
 
-        
+
 
     });
-
-
-
-    // Update the current slider value and save it to localStorage
-
-    // slider.oninput = function() {
-
-    //     const sliderValue = this.value;
-
-    //     output.textContent = sliderValue + '%';
-
-    //     localStorage.setItem('sliderValue', sliderValue);
-
-    //     sendSliderValue(sliderValue); // Send the value to the server
-
-    //     }
 
 
 
@@ -118,6 +107,18 @@
 
                 document.getElementById("power").innerText = obj.power + ' Watt';
 
+                let dbDimmerValue = obj.dimmer_percent;
+
+                if (dbDimmerValue != sliderCurrentValue) {
+
+                    slider.value = dbDimmerValue;
+
+                    document.getElementById('sliderValue').textContent = dbDimmerValue + '%';
+
+                }
+
+
+
 
             }
 
@@ -126,6 +127,8 @@
         xhttp.open("GET", url, true);
 
         xhttp.send();
+
+
 
     }
 
