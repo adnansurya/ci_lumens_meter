@@ -88,9 +88,9 @@
 
                             <div class="card-body">
 
-                                <p class="card-title">Lux level</p>
+                                <p class="card-title">Light level</p>
 
-                                <h1 class="card-text" id='pressure_102'>0 Lumen</h1>
+                                <h1 class="card-text" id='light_level'>0 Lumen</h1>
 
                             </div>
 
@@ -122,7 +122,7 @@
 
                                 <p class="card-title">Watt of Lamp</p>
 
-                                <h1 class="card-text" id='pressure_103'>0 Watt</h1>
+                                <h1 class="card-text" id='power'>0 Watt</h1>
 
                             </div>
 

@@ -10,51 +10,47 @@
 
 
 <script>
-
     const slider = document.getElementById('mySlider');
 
-    const output = document.getElementById('sliderValue');
 
+    $.ajax({
 
+        url: '<?= base_url('assets/data_transfer.php'); ?>', // File PHP untuk menghapus data
 
-    if (typeof(Storage) !== "undefined") {
+        type: 'GET',
 
-        const savedValue = localStorage.getItem('sliderValue');
+        success: function(response) {
 
-        if (savedValue !== null) {
+            console.log(response);
 
-            slider.value = savedValue;
+            var objSlider = JSON.parse(response);
+             
 
-            output.textContent = savedValue + '%'; 
+            document.getElementById('mySlider').value = objSlider.dimmer_percent;
 
-            console.log('Saved value from localStorage: ' + savedValue); 
-            // alert('Saved value from localStorage: ' + savedValue); 
+            document.getElementById('sliderValue').textContent = objSlider.dimmer_percent + '%';
 
         }
 
-    } else {
-
-        console.error("localStorage is not supported on this browser.");
-
-    }
+    });
 
 
+    slider.addEventListener('change', function() {
 
-     slider.addEventListener('input', function() {
+        const sliderValue = slider.value;
 
-            const sliderValue = slider.value;
+        document.getElementById('sliderValue').textContent = sliderValue + '%';
 
-            output.textContent = sliderValue + '%';
+        console.log('Mouse released at value:', sliderValue);
 
-            localStorage.setItem('sliderValue', sliderValue);
 
-            sendSliderValue(sliderValue); // Send the value to the server
-
-            console.log('Slider value: ' + sliderValue); 
-
-        });
+        sendSliderValue(sliderValue); // Send the value to the server
 
         
+
+    });
+
+
 
     // Update the current slider value and save it to localStorage
 
@@ -74,7 +70,7 @@
 
     function sendSliderValue(value) {
 
-        var url = "<?= base_url('assets/history.php'); ?>"; 
+        var url = "<?= base_url('assets/history.php'); ?>";
 
         const xhr = new XMLHttpRequest();
 
@@ -84,7 +80,7 @@
 
 
 
-        xhr.onreadystatechange = function () {
+        xhr.onreadystatechange = function() {
 
             if (xhr.readyState === 4 && xhr.status === 200) {
 
@@ -98,60 +94,57 @@
 
         };
 
-        xhr.send("slider_value=" + value); 
+        xhr.send("slider_value=" + value);
+
+    }
+</script>
+
+
+
+<script>
+    function loadXMLDoc() {
+
+        var url = "<?= base_url('assets/data_transfer.php'); ?>";
+
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+
+            if (this.readyState == 4 && this.status == 200) {
+
+                var obj = JSON.parse(this.responseText);
+
+                document.getElementById("light_level").innerText = obj.light_level + ' Lumen';
+
+                document.getElementById("power").innerText = obj.power + ' Watt';
+
+
+            }
+
+        };
+
+        xhttp.open("GET", url, true);
+
+        xhttp.send();
 
     }
 
+
+
+    setInterval(function() {
+
+        loadXMLDoc();
+
+    }, 1000);
+
+
+
+    window.onload = loadXMLDoc;
 </script>
 
 
 
 <script>
-
-  function loadXMLDoc() {
-
-      var url = "<?= base_url('assets/data_transfer.php'); ?>"; 
-
-      var xhttp = new XMLHttpRequest();
-
-      xhttp.onreadystatechange = function () {
-
-          if (this.readyState == 4 && this.status == 200) {
-
-              var obj = JSON.parse(this.responseText);
-
-              document.getElementById("pressure_102").innerText = obj.pressure_102 + ' Lumen';  
-
-              document.getElementById("pressure_103").innerText = obj.pressure_103 + ' Watt';  
-
-          }
-
-      };
-
-      xhttp.open("GET", url, true);
-
-      xhttp.send();
-
-  }
-
-
-
-  setInterval(function () {
-
-      loadXMLDoc();
-
-  }, 1000);
-
-
-
-  window.onload = loadXMLDoc;  
-
-</script>
-
-
-
-<script>
-
     // Hapus data pada Tabel 1
 
     $('#hapusTabel1').click(function() {
@@ -160,11 +153,13 @@
 
             $.ajax({
 
-                url: '<?= base_url('assets/hapus_data.php');?>',  // File PHP untuk menghapus data
+                url: '<?= base_url('assets/hapus_data.php'); ?>', // File PHP untuk menghapus data
 
                 type: 'POST',
 
-                data: { tabel: 'all' }, // Mengirimkan nama tabel yang akan dihapus (Tabel 1)
+                data: {
+                    tabel: 'all'
+                }, // Mengirimkan nama tabel yang akan dihapus (Tabel 1)
 
                 success: function(response) {
 
@@ -198,11 +193,13 @@
 
             $.ajax({
 
-                url: '<?= base_url('assets/hapus_data.php');?>',  // File PHP untuk menghapus data
+                url: '<?= base_url('assets/hapus_data.php'); ?>', // File PHP untuk menghapus data
 
                 type: 'POST',
 
-                data: { tabel: 'dataHistory' }, // Mengirimkan nama tabel yang akan dihapus (Tabel 2)
+                data: {
+                    tabel: 'dataHistory'
+                }, // Mengirimkan nama tabel yang akan dihapus (Tabel 2)
 
                 success: function(response) {
 
@@ -225,7 +222,6 @@
         }
 
     });
-
 </script>
 
 </body>

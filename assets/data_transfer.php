@@ -21,26 +21,31 @@ if(!$conn){
 }
 
 
+$sql = "SELECT slider_value FROM dataarduino WHERE id='1'";
+$result = $conn->query($sql);
 
-$query = mysqli_query($conn, "SELECT * FROM data ORDER BY id DESC LIMIT 1");
+$row = $result->fetch_assoc();
+
+$dimmerPercent = $row["slider_value"];
+
+
+
+$query = mysqli_query($conn, "SELECT * FROM table_data ORDER BY id DESC LIMIT 1");
 
 while($row = mysqli_fetch_assoc($query)){
 
-    $pressure_102 = $row['pressure_102'];
+    $light_level = $row['light_level'];
 
-    $pressure_103 = $row['pressure_103'];
-
-    $contrast = $row['contrast'];
-
+    $power = $row['power'];
     
 
     $data = array(
 
-        'pressure_102' => $pressure_102,
+        'light_level' => $light_level,
 
-        'pressure_103' => $pressure_103,
+        'power' => $power,
 
-        'contrast' => $contrast,
+        'dimmer_percent' => $dimmerPercent,
 
     );
 
