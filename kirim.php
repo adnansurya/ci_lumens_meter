@@ -15,32 +15,21 @@ if (!empty($_POST)) {
     $jam = date("h:i:s A");
 
 
-    $query = "INSERT INTO data (tanggal, waktu, pressure_102, pressure_103)
+    $sql = "SELECT slider_value FROM dataarduino WHERE id='1'";
+    $result = $conn->query($sql);
 
-VALUES ('$waktuindonesia', '$jam', $lightValue, $powerValue)";
+    $row = $result->fetch_assoc();
+    $dimmerPercent = $row["slider_value"];
 
-    if ($conn->query($query) === TRUE) {
+    // $dimmerPercent = 2;
+    echo $dimmerPercent;
 
-       
-        $sql = "SELECT slider_value FROM dataarduino WHERE id='1'";
-        $result = $conn->query($sql);
-
-        $row = $result->fetch_assoc();
-        $dimmerPercent = $row["slider_value"];
-
-        // $dimmerPercent = 2;
-        echo $dimmerPercent;
-
-        $sqlstr= "INSERT INTO table_data (tanggal, waktu, light_level, power, dimmer_percent) 
+    $sqlstr = "INSERT INTO table_data (tanggal, waktu, light_level, power, dimmer_percent) 
         VALUES ('$waktuindonesia', '$jam', $lightValue, $powerValue, $dimmerPercent)";
 
-        if ($conn->query($sqlstr)) {
-             echo "Berhasil menyimpan data ke table code";
-        } else {
-            echo "Error (INNER IF): " . $query . "<br>" . $conn->error;
-        }
+    if ($conn->query($sqlstr)) {
+        echo "Berhasil menyimpan data ke table code";
     } else {
-
-        echo "Error (OUTER IF): " . $query . "<br>" . $conn->error;
+        echo "Error " . $query . "<br>" . $conn->error;
     }
 }
