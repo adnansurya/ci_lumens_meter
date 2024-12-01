@@ -92,7 +92,7 @@
             </tbody>
         </table>
         <!-- Tombol Hapus Semua untuk tabel pertama -->
-        <button id="hapusTabel1" class="btn btn-danger">Hapus Semua Data Tabel 1</button>
+        <button id="hapusTabel1" class="btn btn-danger">Hapus Semua Data Tabel</button>
 
         <?php if ($total_records1 > $limit1): //pagination hanya jika jumlah data lebih dari limit 
         ?>

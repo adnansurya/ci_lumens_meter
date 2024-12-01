@@ -170,7 +170,7 @@
 
                         location.reload();
 
-                        alert('Semua data pada Tabel 1 berhasil dihapus.');
+                        alert('Semua data pada Tabel berhasil dihapus.');
 
                     } else {
 
