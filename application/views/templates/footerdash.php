@@ -28,7 +28,7 @@
             output.textContent = savedValue + '%'; 
 
             console.log('Saved value from localStorage: ' + savedValue); 
-            alert('Saved value from localStorage: ' + savedValue); 
+            // alert('Saved value from localStorage: ' + savedValue); 
 
         }
 
