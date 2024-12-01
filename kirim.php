@@ -22,7 +22,7 @@ if (!empty($_POST)) {
     $dimmerPercent = $row["slider_value"];
 
     // $dimmerPercent = 2;
-    echo $dimmerPercent;
+    // echo $dimmerPercent;
 
     $sqlstr = "INSERT INTO table_data (tanggal, waktu, light_level, power, dimmer_percent) 
         VALUES ('$waktuindonesia', '$jam', $lightValue, $powerValue, $dimmerPercent)";
