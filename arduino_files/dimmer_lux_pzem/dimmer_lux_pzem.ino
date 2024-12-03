@@ -8,6 +8,9 @@
 #include <Wire.h>
 
 
+#define RXD2 16 
+#define TXD2 17
+
 #if !defined(PZEM_RX_PIN) && !defined(PZEM_TX_PIN)
 #define PZEM_RX_PIN 16
 #define PZEM_TX_PIN 17
@@ -24,8 +27,6 @@ PZEM004Tv30 pzem(PZEM_SERIAL, PZEM_RX_PIN, PZEM_TX_PIN);
 PZEM004Tv30 pzem(PZEM_SERIAL);
 #endif
 
-//#define USE_SERIAL  SerialUSB //Serial for boards whith USB serial port
-#define USE_SERIAL Serial
 #define outputPin 2
 #define zerocross 4  // for boards with CHANGEBLE input pins
 #define mati -1
@@ -39,11 +40,14 @@ int outVal = 0;
 float Lux = 0;
 float Power = 0;
 
-const char* ssid = "kontras";
-const char* password = "12345678";
+// const char* ssid = "kontras";
+// const char* password = "12345678";
+const char* ssid = "MIKRO";
+const char* password = "1DEAlist";
 
 void setup() {
-  USE_SERIAL.begin(9600);
+  Serial.begin(9600);
+  Serial2.begin(9600, SERIAL_8N1, RXD2, TXD2);
   Wire.begin();
   lightMeter.begin();
   Serial.println(F("BH1750 Test begin"));
@@ -104,6 +108,8 @@ void control() {
   // Jika permintaan berhasil, lanjutkan untuk membaca data yang diterima
   if (httpCode == HTTP_CODE_OK) {
     String payload = http.getString();  // Baca data dari respon
+     Serial.println("GET : " + payload);  //Print request response payload
+    
 
     // Parsing data query string yang diterima
     outVal = getValueFromQueryString(payload, "nilai1").toInt();
@@ -138,9 +144,9 @@ void kirimDataKeServer() {
   String postData;
   String link;
   //Post Data
-  postData = "phValue=";
+  postData = "lightValue=";
   postData += Lux;
-  postData += "&tdsValue=";
+  postData += "&powerValue=";
   postData += Power;
 
   link = "http://controllinglamp.site/kirim.php";
@@ -152,7 +158,7 @@ void kirimDataKeServer() {
   String payload = http.getString();   //Get the response payload
 
   //Serial.println(httpCode);
-  Serial.println(payload);  //Print request response payload
+  Serial.println("KIRIM : " + payload);  //Print request response payload
   if (httpCode == 200) {
     Serial.println("send succes");
   } else {
@@ -183,7 +189,7 @@ void Dim() {
   } else {
     dimmer.setPower(outVal);  // name.setPower(0%-100%)
   }
-  USE_SERIAL.println(outVal);
+  Serial.println(outVal);
 }
 
 void Light() {
@@ -197,6 +203,7 @@ void Daya() {
   Power = pzem.power();
   if (isnan(Power)) {
     Serial.println("Listrik Tidak Terdeteksi");
+    Power = -99;
   } else {
     if (Power <= 1.30) {
       Power = 0;
