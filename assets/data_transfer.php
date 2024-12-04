@@ -29,6 +29,13 @@ $row = $result->fetch_assoc();
 $dimmerPercent = $row["slider_value"];
 
 
+$sql = "SELECT slider_value FROM dataarduino WHERE id='2'";
+$result = $conn->query($sql);
+
+$row = $result->fetch_assoc();
+
+$area = $row["slider_value"];
+
 
 $query = mysqli_query($conn, "SELECT * FROM table_data ORDER BY id DESC LIMIT 1");
 
@@ -37,15 +44,21 @@ while($row = mysqli_fetch_assoc($query)){
     $light_level = $row['light_level'];
 
     $power = $row['power'];
+
+    $lumens_level = number_format((floatval($light_level) * floatval($area)), 2);
     
 
     $data = array(
 
         'light_level' => $light_level,
 
+        'lumens_level' => $lumens_level,
+
         'power' => $power,
 
         'dimmer_percent' => $dimmerPercent,
+
+        'area' => $area,
 
     );
 
