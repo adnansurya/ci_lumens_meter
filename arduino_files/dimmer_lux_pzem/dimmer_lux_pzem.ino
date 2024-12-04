@@ -40,10 +40,10 @@ int outVal = 0;
 float Lux = 0;
 float Power = 0;
 
-// const char* ssid = "kontras";
-// const char* password = "12345678";
-const char* ssid = "MIKRO";
-const char* password = "1DEAlist";
+const char* ssid = "kontras";
+const char* password = "12345678";
+// const char* ssid = "MIKRO";
+// const char* password = "1DEAlist";
 
 void setup() {
   Serial.begin(9600);
@@ -203,7 +203,7 @@ void Daya() {
   Power = pzem.power();
   if (isnan(Power)) {
     Serial.println("Listrik Tidak Terdeteksi");
-    Power = -99;
+    // Power = -99;
   } else {
     if (Power <= 1.30) {
       Power = 0;
