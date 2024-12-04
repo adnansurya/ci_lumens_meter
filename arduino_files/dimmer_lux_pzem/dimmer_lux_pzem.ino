@@ -8,9 +8,6 @@
 #include <Wire.h>
 
 
-#define RXD2 16 
-#define TXD2 17
-
 #if !defined(PZEM_RX_PIN) && !defined(PZEM_TX_PIN)
 #define PZEM_RX_PIN 16
 #define PZEM_TX_PIN 17
@@ -47,7 +44,7 @@ const char* password = "12345678";
 
 void setup() {
   Serial.begin(9600);
-  Serial2.begin(9600, SERIAL_8N1, RXD2, TXD2);
+  Serial2.begin(9600, SERIAL_8N1, PZEM_RX_PIN, PZEM_TX_PIN);
   Wire.begin();
   lightMeter.begin();
   Serial.println(F("BH1750 Test begin"));
@@ -61,36 +58,9 @@ void setup() {
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.print(".");
-    // lcd.setCursor(16, 1);
-    // lcd.write(byte(0));
-    // delay(200);
-    // lcd.setCursor(16, 1);
-    // lcd.write(byte(1));
-    // delay(200);
-    // lcd.setCursor(16, 1);
-    // lcd.write(byte(2));
-    // delay(200);
-    // lcd.setCursor(16, 1);
-    // lcd.write(byte(1));
-    // delay(200);
-    // lcd.setCursor(16, 1);
-    // lcd.write(byte(0));
-    // lcd.setCursor(18, 0);
-    // lcd.write(byte(3));
+
   }
-  // lcd.clear();
-  // lcd.home();
-  // lcd.print(" Sistem Hidroponik ");
-  // lcd.setCursor(0, 1);
-  // lcd.print("Connected To WiFi");
-  // lcd.setCursor(18, 1);
-  // lcd.write(byte(3));
-  // lcd.setCursor(0, 2);
-  // lcd.print("IP:");
-  // lcd.setCursor(3, 2);
-  // lcd.print(WiFi.localIP());
-  // delay(2000);
-  // lcd.clear();
+
   Serial.print("Connected");
   dimmer.begin(NORMAL_MODE, ON);  //dimmer initialisation: name.begin(MODE, STATE)
 }
@@ -110,25 +80,9 @@ void control() {
     String payload = http.getString();  // Baca data dari respon
      Serial.println("GET : " + payload);  //Print request response payload
     
-
     // Parsing data query string yang diterima
     outVal = getValueFromQueryString(payload, "nilai1").toInt();
 
-    // Lakukan sesuatu dengan nilai-nilai yang diterima, misalnya menyimpannya di EEPROM
-    // writeDataToEEPROM(nilai1);
-    // writeDataToEEPROM(nilai2);
-    // writeDataToEEPROM(nilai3);
-    // writeDataToEEPROM(nilai4);
-
-    // Debugging: Tampilkan nilai-nilai yang diterima di Serial Monitor
-    // Serial.print("Received values: ");
-    // Serial.print(nilai1);
-    // Serial.print(", ");
-    // Serial.print(nilai2);
-    // Serial.print(", ");
-    // Serial.print(nilai3);
-    // Serial.print(", ");
-    // Serial.println(nilai4);
   } else {
     Serial.println("HTTP request failed");
   }
