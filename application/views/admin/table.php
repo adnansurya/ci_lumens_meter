@@ -14,7 +14,10 @@
                         <center>Waktu</center>
                     </th>
                     <th scope="col">
-                        <center>Lumen</center>
+                        <center>Lumens</center>
+                    </th>
+                    <th scope="col">
+                        <center>Lux</center>
                     </th>
                     <th scope="col">
                         <center>Watt</center>
@@ -37,6 +40,13 @@
                 if (!$conn) {
                     die("Koneksi Tidak Berhasil" . mysqli_connect_error());
                 }
+
+                $sql = "SELECT slider_value FROM dataarduino WHERE id='2'";
+                $result = $conn->query($sql);
+
+                $row = $result->fetch_assoc();
+
+                $area = $row["slider_value"];
 
                 // Pagination 
                 // Pagination untuk tabel pertama
@@ -62,6 +72,9 @@
                 // Cek apakah ada data
                 if ($total_records1 > 0) {
                     while ($row = mysqli_fetch_array($read1)) {
+                        $light_level = $row['light_level'];
+                        $lumens_level = floatval($light_level) * floatval($area);
+
                 ?>
                         <tr>
                             <th scope="row">
@@ -74,7 +87,10 @@
                                 <center><?php echo $row['waktu']; ?></center>
                             </td>
                             <td>
-                                <center><?php echo $row['light_level']; ?></center>
+                                <center><?php echo floatval($lumens_level); ?></center>
+                            </td>
+                            <td>
+                                <center><?php echo floatval($light_level); ?></center>
                             </td>
                             <td>
                                 <center><?php echo $row['power']; ?></center>
@@ -131,7 +147,7 @@
                 </ul>
             </nav>
         <?php endif; // Akhir dari pengecekan untuk pagination 
-        ?>        
+        ?>
 
     </div>
 </div>
