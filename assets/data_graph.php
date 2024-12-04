@@ -20,11 +20,20 @@ if(!$conn){
 
 }
 
+$sql = "SELECT slider_value FROM dataarduino WHERE id='2'";
+$result = $conn->query($sql);
+
+$row = $result->fetch_assoc();
+
+$area = $row["slider_value"];
+
 
 
 $data_p2 = "";
 
 $data_w ="";
+
+
 
 
 
@@ -34,7 +43,11 @@ while($row = mysqli_fetch_assoc($query)){
 
     $data_w .= $row['waktu']. ",";
 
-    $data_p2 .= $row['light_level']. ",";
+    $light_level = $row['light_level'];
+
+    $lumens_level = number_format((floatval($light_level) * floatval($area)), 2);
+
+    $data_p2 .= $lumens_level. ",";
 
 
 
