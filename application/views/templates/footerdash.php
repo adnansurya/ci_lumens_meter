@@ -103,7 +103,11 @@
 
                 var obj = JSON.parse(this.responseText);
 
-                document.getElementById("light_level").innerHTML = parseFloat(obj.lumens_level) + ' Lumens <h4> ('+ parseFloat(obj.light_level) + ' Lux) </h4>';
+                let lumens_level = parseFloat(obj.lumens_level);
+
+                console.log("LUMENS : " + lumens_level);                
+
+                document.getElementById("light_level").innerHTML =  +  lumens_level + ' Lumens <h4> ('+ parseFloat(obj.light_level) + ' Lux) </h4>';
 
                 document.getElementById("power").innerText = obj.power + ' Watt';
 
