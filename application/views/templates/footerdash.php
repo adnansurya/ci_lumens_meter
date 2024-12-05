@@ -103,7 +103,7 @@
 
                 var obj = JSON.parse(this.responseText);
 
-                let lumens_level = parseFloat(obj.lumens_level);
+                let lumens_level = parseFloat(obj.lumens_level).toFixed(2);
 
                 console.log("LUMENS : " + lumens_level);                
 

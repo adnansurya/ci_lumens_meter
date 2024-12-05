@@ -75,6 +75,7 @@
                         $light_level = $row['light_level'];
                         $lumens_level = floatval($light_level) * floatval($area);
 
+
                 ?>
                         <tr>
                             <th scope="row">
@@ -87,7 +88,7 @@
                                 <center><?php echo $row['waktu']; ?></center>
                             </td>
                             <td>
-                                <center><?php echo floatval($lumens_level); ?></center>
+                                <center><?php echo number_format(floatval($lumens_level),2); ?></center>
                             </td>
                             <td>
                                 <center><?php echo floatval($light_level); ?></center>
