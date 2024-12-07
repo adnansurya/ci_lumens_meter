@@ -40,7 +40,7 @@
 
                         <div id="contrast-canvas" class="col-12">
 
-                            <img src="Logo/contasrt.jpeg" class="img-fluid rounded-start" alt="...">
+                            <img src="Logo/icon-monitor-2.jpg" class="img-fluid rounded-start" alt="...">
 
                         </div>
 
@@ -112,7 +112,7 @@
 
                         <div id="watt-canvas" style="width:100%" class="col-md-12">
 
-                            <img src="Logo/icon-listrik.png" class="img-fluid rounded-start" alt="...">
+                            <img src="Logo/icon-monitor-1.jpg" class="img-fluid rounded-start" alt="...">
 
                         </div>
 
