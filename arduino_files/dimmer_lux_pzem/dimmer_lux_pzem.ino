@@ -138,6 +138,8 @@ String getValueFromQueryString(String data, String key) {
 
 void Dim() {
   control();
+
+  outVal = map(outVal, 0, 100, 0, 75);
   if (outVal <= 2) {
     dimmer.setPower(mati);  // name.setPower(0%-100%)
   } else {
