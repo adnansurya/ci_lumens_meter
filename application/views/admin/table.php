@@ -50,7 +50,7 @@
 
                 // Pagination 
                 // Pagination untuk tabel pertama
-                $limit1 = 10; // data per halaman untuk tabel pertama
+                $limit1 = 50; // data per halaman untuk tabel pertama
                 if (isset($_GET['page1'])) {
                     $page1 = $_GET['page1'];
                 } else {
