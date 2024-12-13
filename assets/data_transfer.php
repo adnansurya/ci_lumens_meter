@@ -45,7 +45,7 @@ while($row = mysqli_fetch_assoc($query)){
 
     $power = $row['power'];
 
-    $lumens_level = floatval($light_level) * floatval($area);
+    $lumens_level = $row['lumens'];
     
 
     $data = array(

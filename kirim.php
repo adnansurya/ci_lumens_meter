@@ -21,11 +21,17 @@ if (!empty($_POST)) {
     $row = $result->fetch_assoc();
     $dimmerPercent = $row["slider_value"];
 
-    // $dimmerPercent = 2;
-    // echo $dimmerPercent;
+    $sql = "SELECT slider_value FROM dataarduino WHERE id='2'";
+    $result = $conn->query($sql);
 
-    $sqlstr = "INSERT INTO table_data (tanggal, waktu, light_level, power, dimmer_percent) 
-        VALUES ('$waktuindonesia', '$jam', $lightValue, $powerValue, $dimmerPercent)";
+    $row = $result->fetch_assoc();
+
+    $area = $row["slider_value"];
+
+    $lumens = floatval($lightValue) * floatval($area);
+
+    $sqlstr = "INSERT INTO table_data (tanggal, waktu, light_level, lumens, power, dimmer_percent) 
+        VALUES ('$waktuindonesia', '$jam', $lightValue, $lumens, $powerValue, $dimmerPercent)";
 
     if ($conn->query($sqlstr)) {
         echo "Berhasil menyimpan data ke table code";

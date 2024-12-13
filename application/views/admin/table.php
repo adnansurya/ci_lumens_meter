@@ -88,10 +88,10 @@
                                 <center><?php echo $row['waktu']; ?></center>
                             </td>
                             <td>
-                                <center><?php echo number_format(floatval($lumens_level),2); ?></center>
+                                <center><?php echo $row['lumens']; ?></center>
                             </td>
                             <td>
-                                <center><?php echo floatval($light_level); ?></center>
+                                <center><?php echo $row['light_level']; ?></center>
                             </td>
                             <td>
                                 <center><?php echo $row['power']; ?></center>
